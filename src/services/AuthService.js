@@ -1,8 +1,7 @@
-import { initializeApp } from "firebase/app"
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import firebaseConfig from './FirebaseConfig'
+import {app} from './FirebaseConfig'
 
-const app = initializeApp(firebaseConfig)
+
 
 const auth = getAuth(app)
 
