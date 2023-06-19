@@ -1,5 +1,9 @@
-const Botao = (props) => {
-  return <h1>Aqui é um botão</h1>;
+const Button = (props) => {
+  return (
+    <>
+      <button className={`${props.classe}`}>{props.botao}</button>
+    </>
+  );
 };
 
-export default Botao;
+export default Button;
