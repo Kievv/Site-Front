@@ -1,7 +1,9 @@
+import Formulario from "@/components/remedios/Formulario";
+
 const CadastrarRemedios = () => {
   return (
     <>
-      <h1>Cadastrar Remédios</h1>
+      <Formulario />
     </>
   );
 };
