@@ -1,5 +1,8 @@
+
 const Botao = (props) => {
-  return <h1>Aqui é um botão</h1>;
+  return (
+    <button className={props.classe}>{props.texto}</button>
+  )
 };
 
 export default Botao;
