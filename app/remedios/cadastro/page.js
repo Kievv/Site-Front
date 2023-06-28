@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import Formulario from '@components/remedios/Formulario';
 import Botao from '@components/Botao';

@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Botao from '@components/Botao';
 
-// https://www.freecodecamp.org/news/nextjs-firebase-tutorial-build-an-evernote-clone/
 const Home = () => {
   return (
     <>

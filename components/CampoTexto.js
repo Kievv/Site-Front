@@ -5,8 +5,9 @@ const CampoTexto = (props) => {
         <label className={`campo-${props.campo}`}>
           {props.label}
           <input
-            type="text"
-            name={props.item}
+            type={props.type}
+            name={props.name}
+            {...props.register(props.name, props.validateSchema)}
             id={props.item}
             className={props.campo}
             placeholder={props.placeholder}

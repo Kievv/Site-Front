@@ -1,78 +1,123 @@
-import { app, database } from '@services/firebaseConfig';
-import { collection, addDoc } from 'firebase/firestore';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { addRemedio } from '@services/RemediosService';
 import Botao from '@components/Botao';
 import CampoTexto from '../CampoTexto';
-
-const dbInstance = collection(database, 'remedios');
+import { useContext } from 'react';
+import UserContext from '@contexts/UserContext';
 
 const Formulario = () => {
-  const [medicamento, setMedicamento] = useState('');
-  const [dosagem, setDosagem] = useState('');
-  const [miligramagem, setMiligramagem] = useState('');
-  const [horario, setHorario] = useState([]);
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const { userId } = useContext(UserContext);
+
+  const validateSchema = {
+    required: {
+      value: true,
+      message: 'Campo obrigatório',
+    },
+    minLength: {
+      value: 3,
+      message: 'Campo deve ter no mínimo 3 caracteres',
+    },
+  };
+  const validateSchemaOpcional = {
+    required: {
+      value: false,
+    },
+  };
+
+  async function onSubmit(data) {
+    await addRemedio(data, userId);
+    reset();
+    router.push('/remedios');
+  }
 
   return (
     <>
       <form className="container">
         <div className="container">
           <CampoTexto
+            type="text"
             label="MEDICAMENTO"
             campo="texto"
             item="medicamento"
             placeholder="Digite aqui o nome do seu remédio..."
-            onChange={handleChangeMedicamento}
-            value={medicamento}
+            name="medicamento"
+            register={register}
+            validateSchema={validateSchema}
+            errors={errors}
           />
 
           <div className="texto">
             <CampoTexto
+              type="text"
               label="DOSAGEM"
               campo="texto"
               item="dosagem"
               placeholder="Quantas cápsulas ao dia..."
-              onChange={handleChangeDosagem}
-              value={dosagem}
+              name="dosagem"
+              register={register}
+              validateSchema={validateSchema}
+              errors={errors}
             />
             <CampoTexto
+              type="text"
               label="MILIGRAMAS"
               campo="texto"
               item="miligramagem"
               placeholder="Digite a miligramagem..."
-              onChange={handleChangeMiligramagem}
-              value={miligramagem}
+              name="miligramagem"
+              register={register}
+              validateSchema={validateSchema}
+              errors={errors}
             />
           </div>
 
           <div className="texto">
             <CampoTexto
+              type="text"
               label="HORÁRIO"
               campo="texto"
               item="horario"
               placeholder="Digite aqui o horário..."
-              onChange={handleChangeHorario}
-              value={horario}
+              name="horario"
+              register={register}
+              validateSchema={validateSchema}
+              errors={errors}
             />
             <CampoTexto
+              type="text"
               label="HORÁRIO"
               campo="texto"
-              item="horario"
+              item="horario1"
               placeholder="Digite aqui o horário..."
-              onChange={handleChangeHorario}
-              value={horario}
+              name="horario1"
+              register={register}
+              validateSchema={validateSchemaOpcional}
+              errors={errors}
             />
             <CampoTexto
+              type="text"
               label="HORÁRIO"
               campo="texto"
-              item="horario"
+              item="horario2"
               placeholder="Digite aqui o horário..."
-              onChange={handleChangeHorario}
-              value={horario}
+              name="horario2"
+              register={register}
+              validateSchema={validateSchemaOpcional}
+              errors={errors}
             />
           </div>
 
           <div className="btn-holder p-0.5">
-            <Botao botao="CADASTRAR" classe="cadastrar" />
+            <Botao botao="CADASTRAR" classe="cadastrar" handleClick={handleSubmit(onSubmit)} type="submit" />
           </div>
         </div>
       </form>

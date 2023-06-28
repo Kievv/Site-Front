@@ -1,4 +1,10 @@
+'use client';
+import UserContext from '@contexts/UserContext';
+import { listRemedios } from '@services/RemediosService';
+import { useEffect, useState, useContext } from 'react';
+
 const TabelaRemedio = (props) => {
+  const reme = listRemedios(props.userId);
   return (
     <table>
       <thead>
@@ -8,12 +14,9 @@ const TabelaRemedio = (props) => {
               <input type="checkbox" name="deletar" id="check" className="checkbox" />
             </td>
           )}
-          <td>{props.remedio}</td>
-          <td>{props.dose}</td>
-          <td>{props.miligramas}</td>
-          <td>{props.hor1}</td>
-          <td>{props.hor2}</td>
-          <td className="last-column">{props.hor3}</td>
+          {remedios.map((remedio) => (
+            <td>{remedio}</td>
+          ))}
         </tr>
       </thead>
     </table>
